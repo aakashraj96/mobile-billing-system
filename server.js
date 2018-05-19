@@ -49,6 +49,8 @@ server.route([{
       else{
         reply('Error');
       }
+    }).catch((err)=>{
+      reply('sign up err')
     });
   }
 }]);
