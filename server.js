@@ -12,7 +12,7 @@ const models = require('./models');
 
 const server = new Hapi.Server();
 server.connection({ port: 8080, host: 'localhost' });
-server.route({
+server.route([{
   path: '/login',
   method: 'POST',
   handler: (request, reply) => {
@@ -30,7 +30,28 @@ server.route({
       }
     });
   }
-});
+},
+{
+  path: '/signup',
+  method: 'POST',
+  handler: (request, reply) => {
+    models.users.create({
+      name: request.payload.name,
+      email: request.payload.email,
+      password: request.payload.password,
+      Dob: request.payload.dob,
+      mobile: request.payload.mobile
+    }).then((data)=>{
+      console.log(data);
+      if(data){
+        reply('Signed up');
+      }
+      else{
+        reply('Error');
+      }
+    });
+  }
+}]);
 
 server.start(() => {
   console.log('Server running at:', server.info.uri);
