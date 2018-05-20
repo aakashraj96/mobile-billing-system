@@ -2,14 +2,6 @@
 const Hapi = require('hapi');
 const models = require('./models');
 
-// models.users.create({
-//   name: 'aakash',
-//   email: 'aakash@a.com',
-//   password: 'aafdfg',
-//   dob: '1996-08-14',
-//   mobile: '999999999'
-// });
-
 const server = new Hapi.Server();
 server.connection({ port: 8080, host: 'localhost' });
 server.route([{
@@ -59,6 +51,19 @@ server.route([{
       reply(JSON.stringify({
         msg: 'sign up err'
       }))
+    });
+  }
+},
+{
+  path: '/transactions',
+  method: 'GET',
+  handler: (request, reply) => {
+    models.transactions.findAll({
+      where:{
+        email: request.query.email
+      }
+    }).then((data)=>{
+      reply(JSON.stringify(data));
     });
   }
 }]);
