@@ -23,10 +23,14 @@ server.route([{
       }
     }).then((data)=>{
       if(data){
-        reply('welcome');
+        reply(JSON.stringify({
+          msg: 'welcome'
+        }));
       }
       else{
-        reply('Wrong credentials');
+        reply(JSON.stringify({
+          msg: 'Wrong credentials'
+        }));
       }
     });
   }
@@ -44,13 +48,17 @@ server.route([{
     }).then((data)=>{
       console.log(data);
       if(data){
-        reply('Signed up');
+        reply(JSON.stringify({
+          msg: 'Signed up'
+        }));
       }
       else{
         reply('Error');
       }
     }).catch((err)=>{
-      reply('sign up err')
+      reply(JSON.stringify({
+        msg: 'sign up err'
+      }))
     });
   }
 }]);
